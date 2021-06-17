@@ -2,7 +2,7 @@
 
 ## Development
 
-1. Clone and run the command: `yarn` (Install yarn if yu dont have it)
+1. Clone and run the command: `yarn` (Install yarn if you dont have it)
 
 2. Make new file: `.env` and fill it with values from `.env.example`
 
