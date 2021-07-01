@@ -9,6 +9,8 @@
         "isolatedModules": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "sourceMap": true,
         "outDir": "./dist",
