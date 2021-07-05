@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import jwt, {NotBeforeError, TokenExpiredError} from "jsonwebtoken";
+import {NotBeforeError, TokenExpiredError, verify, VerifyErrors} from "jsonwebtoken";
 import { JWT_KEY } from "../../constants";
 import {AuthResponse} from "../../types/base/BackendResponse";
 import {AuthorizedUser} from "../../types/security/AuthorizedUser";
@@ -17,7 +17,7 @@ export function AuthorizeToken(req: Request, res: Response, next: NextFunction):
         return
     }
 
-    jwt.verify(authorizationHeader.substr(7), JWT_KEY, (err, decoded) => {
+    verify(authorizationHeader.substr(7), JWT_KEY, (err, decoded) => {
         if (err !== null) {
             res.status(401)
             switch (err.constructor) {
@@ -44,4 +44,8 @@ export function AuthorizeToken(req: Request, res: Response, next: NextFunction):
             }
         }
     })
+}
+
+export function checkRole(req: Request, res: Response, next: NextFunction): void {
+    
 }

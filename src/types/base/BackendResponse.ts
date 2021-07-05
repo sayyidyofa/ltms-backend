@@ -1,6 +1,6 @@
-import { User, Post } from '@prisma/client'
+import { User, Teacher, TahfizhGroup, Student, Session, Alquran } from '@prisma/client'
 
-type Resource = User | Post
+type Resource = User | Teacher | TahfizhGroup | Student | Session | Alquran
 
 export type BasicResponse = {
     message: string

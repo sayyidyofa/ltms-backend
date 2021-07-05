@@ -7,4 +7,4 @@ export function panic(message: string): never {
 export const isAuthable =
     (input: Record<string, unknown>)
         : input is Authable =>
-        typeof input.email === "string" && typeof input.password === "string";
+        typeof input.code === "string" && typeof input.password === "string";
