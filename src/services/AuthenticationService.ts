@@ -17,7 +17,7 @@ import { Authable } from '../types/security/Authable';
  */
 export function AuthenticationService(req: Request, res: Response): void {
     if (isAuthable(req.body)) 
-    db().user.findUnique({where: {code: (<Authable>req.body).code}})
+    db().user.findUnique({where: {username: (<Authable>req.body).username}})
         .then(user => {
             if (user === null) {
                 res.status(404)
@@ -29,7 +29,7 @@ export function AuthenticationService(req: Request, res: Response): void {
                 BCrypt.compare((<Authable>req.body).password, user.password)
                     .then(isValid => {
                         if (isValid) res.json(<AuthResponse>{
-                            token: sign({ user: { id: user.id } }, JWT_KEY, <SignOptions> {
+                            token: sign({ id: user.id, role: user.role }, JWT_KEY, <SignOptions> {
                                 expiresIn: TOKEN_VALIDITY_PERIOD
                             })
                         })

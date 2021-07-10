@@ -39,13 +39,19 @@ export function AuthorizeToken(req: Request, res: Response, next: NextFunction):
                     panic("Decoded token is undefined, proceeding to panic")
                     break
                 case "object":
-                    req.body.user = (<AuthorizedUser>decoded).user
+                    req.currentUser = <AuthorizedUser>decoded
                     next()
             }
         }
     })
 }
 
-export function checkRole(req: Request, res: Response, next: NextFunction): void {
-    
+export function RequestHasUser(req: Request, res: Response, next: NextFunction): void {
+    switch (typeof req.currentUser) {
+        case "undefined":
+            res.json(<AuthResponse>{error: Errors.AUTH_REQUEST_CURRENT_USER_NONEXIST})
+            break;
+        case "object":
+            next()
+    }
 }
