@@ -11,13 +11,14 @@ COPY prisma ./prisma/
 # Install app dependencies
 RUN yarn
 # Required if not done in postinstall
-RUN yarn run prisma generate
+RUN yarn run prisma migrate deploy
+RUN yarn run ts-node ./prisma/seed.ts
 
 COPY . .
 
 RUN yarn run build
 
-FROM node:12
+FROM node:14
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./

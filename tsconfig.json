@@ -13,6 +13,7 @@
       "sourceMap": true,
       "outDir": "./dist",
       "lib": [
+        "es2020",
         "esnext.asynciterable",
         "DOM" // Weird axios https://github.com/axios/axios/issues/3219
       ],

@@ -1,6 +1,6 @@
-import { User, Teacher, TahfizhGroup, Student, Session, Alquran } from '@prisma/client'
+import { User, Teacher, TahfizhGroup, Student, Session, Alquran, Percepatan } from '@prisma/client'
 
-type Resource = User | Teacher | TahfizhGroup | Student | Session | Alquran
+type Resource = User | Teacher | TahfizhGroup | Student | Session | Percepatan | Alquran
 
 export type BasicResponse = {
     message: string
@@ -12,10 +12,16 @@ export type AuthResponse = {
 }
 
 export type ValidationResponse = {
-    errors: [string]
+    errors: string[]
 }
 
+type ResourceID = number;
+
 export type RestResponse = {
-    data?: [Resource],
-    error?: string
+    event: "created" | "retrieved" | "updated" | "deleted"
+    data?: {
+        type: "singular" | "multiple" | "id",
+        content: Resource | Resource[] | ResourceID
+    }
+    error?: string | Record<string, unknown>
 }
