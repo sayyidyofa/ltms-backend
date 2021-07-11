@@ -18,10 +18,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    depends_on:
-      - postgres
     env_file:
       - .env
+    restart: on-failure
+    healthcheck:
+      test: [ "CMD", "psql", "-h", "postgres", "-p", "5432" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   postgres:
