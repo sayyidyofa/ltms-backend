@@ -1,5 +1,16 @@
 version: '3.7'
 services:
+  postgres:
+    image: postgres:12
+    container_name: ltms-postgres
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
   rest:
     container_name: ltms-rest
     build:
@@ -11,17 +22,6 @@ services:
       - postgres
     env_file:
       - .env
-
-  postgres:
-    image: postgres:12
-    container_name: ltms-postgres
-    restart: always
-    ports:
-      - 5432:5432
-    env_file:
-      - .env
-    volumes:
-      - postgres:/var/lib/postgresql/data
 
 volumes:
   postgres:
