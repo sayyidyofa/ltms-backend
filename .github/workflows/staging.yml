@@ -47,8 +47,11 @@ jobs:
         SERVER_DESTINATION: ${{ secrets.STAGING_DEPLOY_PATH }}
     - name: Run Script over SSH
       uses: appleboy/ssh-action@master
+      env:
+        DEPLOY_PATH: ${{ secrets.STAGING_DEPLOY_PATH }}
       with:
         host: ${{ secrets.STAGING_SERVER_HOSTNAME }}
         username: ${{ secrets.STAGING_SSH_USERNAME }}
         key: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
-        script: docker-compose up -d
+        envs: DEPLOY_PATH
+        script: cd $DEPLOY_PATH && docker-compose up -d
