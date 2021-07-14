@@ -24,6 +24,7 @@ jobs:
       run: sudo apt update && sudo apt install rsync
     - name: Create rsync exclude.txt
       run: |
+        echo -e 'data' >> exclude-list.txt
         echo -e '.git' >> exclude-list.txt
         echo -e '.env.example' >> exclude-list.txt
         echo -e '.gitattributes' >> exclude-list.txt
