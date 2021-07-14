@@ -2,8 +2,10 @@ import { Request, Response, Router } from 'express';
 import { AuthenticationService } from '../services/AuthenticationService';
 
 import {BasicResponse} from "../types/base/BackendResponse";
-import {addUser, me} from "../services/UserService";
+import {addUser, editUser, me} from "../services/UserService";
 import {UserRegisterValidation} from "../middlewares/validators/UserRegisterValidation";
+import {AuthorizeToken} from "../middlewares/security/Authorize";
+import {UserEditValidation} from "../middlewares/validators/UserEditValidation";
 
 const router = Router()
 
@@ -11,9 +13,10 @@ const router = Router()
 router.post('/auth', AuthenticationService)
 
 // User
-router.post('/users', ...UserRegisterValidation, addUser)
+router.post('/users', AuthorizeToken, ...UserRegisterValidation, addUser)
+router.put('/users', AuthorizeToken, ...UserEditValidation, editUser)
 
-router.get('/me', me)
+router.get('/me', AuthorizeToken, me)
 
 
 router.get('/', (req: Request, res: Response): void => {

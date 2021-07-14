@@ -11,5 +11,5 @@ export enum Errors {
     AUTH_TOKEN_BEFORE       = "Token time is invalid",
     AUTH_CRED_UNDEFINED     = "Username and password are required",
     AUTH_USER_NONEXIST      = "User not found",
-    AUTH_REQUEST_CURRENT_USER_NONEXIST = "Unauthorized"
+    AUTH_REQUEST_CURRENT_USER_NONEXIST = "Current User Context undefined"
 }

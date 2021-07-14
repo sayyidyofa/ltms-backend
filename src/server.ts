@@ -3,7 +3,9 @@ import express from 'express'
 import Router from './routes/Main'
 import { SERVER_PORT } from './constants'
 import {allowCrossDomain} from './middlewares/security/CORS'
-import {RequestHasUser} from "./middlewares/security/Authorize";
+import { PrismaClient } from '@prisma/client'
+
+global.orm = new PrismaClient()
 
 const server = express()
 
@@ -11,8 +13,6 @@ server.use(bodyParser.json())
 server.use(allowCrossDomain)
 
 server.use('/', Router)
-
-server.use(RequestHasUser)
 
 server.listen(SERVER_PORT, () => {
     console.log(`Server has started at port ${SERVER_PORT}`)

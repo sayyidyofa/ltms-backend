@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import {NotBeforeError, TokenExpiredError, verify, VerifyErrors} from "jsonwebtoken";
+import {NotBeforeError, TokenExpiredError, verify} from "jsonwebtoken";
 import { JWT_KEY } from "../../constants";
 import {AuthResponse} from "../../types/base/BackendResponse";
 import {AuthorizedUser} from "../../types/security/AuthorizedUser";

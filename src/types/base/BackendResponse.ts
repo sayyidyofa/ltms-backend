@@ -18,7 +18,7 @@ export type ValidationResponse = {
 type ResourceID = number;
 
 export type RestResponse = {
-    event: "created" | "retrieved" | "updated" | "deleted"
+    event: "created" | "retrieved" | "updated" | "deleted" | "error"
     data?: {
         type: "singular" | "multiple" | "id",
         content: Resource | Resource[] | ResourceID

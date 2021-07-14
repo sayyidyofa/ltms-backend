@@ -2,7 +2,6 @@ import BCrypt from 'bcrypt';
 import { Request, Response } from "express";
 import {sign, SignOptions} from 'jsonwebtoken';
 import {JWT_KEY, TOKEN_VALIDITY_PERIOD} from "../constants";
-import {db} from "./DatabaseService";
 import {isAuthable} from "../util/helpers";
 import {AuthResponse, BasicResponse} from "../types/base/BackendResponse";
 import {Errors} from "../constants";
@@ -17,7 +16,7 @@ import { Authable } from '../types/security/Authable';
  */
 export function AuthenticationService(req: Request, res: Response): void {
     if (isAuthable(req.body)) 
-    db().user.findUnique({where: {username: (<Authable>req.body).username}})
+    global.orm.user.findUnique({where: {username: (<Authable>req.body).username}})
         .then(user => {
             if (user === null) {
                 res.status(404)
