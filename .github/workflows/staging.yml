@@ -55,4 +55,4 @@ jobs:
         username: ${{ secrets.STAGING_SSH_USERNAME }}
         key: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
         envs: DEPLOY_PATH
-        script: cd $DEPLOY_PATH && docker-compose up --build -d
+        script: cd $DEPLOY_PATH && docker-compose up --build -d && docker image prune
