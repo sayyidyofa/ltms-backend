@@ -83,6 +83,9 @@ model Student {
   tahunMasuk     Int
   tahunLulus     Int
   profileURL     String
+  namaAyah       String
+  namaIbu        String
+  namaWali       String
   parent         Parents      @relation(fields: [parentId], references: [id])
   parentId       Int
   sessions       Session[]
