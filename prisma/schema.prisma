@@ -59,6 +59,18 @@ model TahfizhGroup {
   students  Student[]
 }
 
+model Parents {
+  id          Int       @id @default(autoincrement())
+  nama        String
+  birthPlace  String
+  birthDate   DateTime
+  username    String    @unique
+  students    Student[]
+  pekerjaan   String
+  status      String
+  penghasilan Int
+}
+
 model Student {
   id             Int          @id @default(autoincrement())
   nit            String       @unique
@@ -68,6 +80,8 @@ model Student {
   birthDate      DateTime
   tahunMasuk     Int
   tahunLulus     Int
+  parent         Parents      @relation(fields: [parentId], references: [id])
+  parentId       Int
   sessions       Session[]
   tahfizhGroup   TahfizhGroup @relation(fields: [tahfizhGroupId], references: [id])
   tahfizhGroupId Int
@@ -102,10 +116,11 @@ model Percepatan {
 }
 
 model Alquran {
-  id           Int    @id @default(autoincrement())
-  juz          Int
-  halaman      Int
-  surah        String
-  awalAyatHal  String
-  akhirAyatHal String
+  id         Int    @id @default(autoincrement())
+  juz        Int
+  halaman    Int
+  awalSurah  Int
+  awalAyat   String
+  akhirSurah String
+  akhirAyat  Int
 }

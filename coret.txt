@@ -1,0 +1,86 @@
+halaman, 
+juz, 
+surah, 
+awalAyat,
+awalSurah 
+akhirAyat,
+akhirSurah
+
+{
+    "halaman", 
+    "juz", 
+    "awalSurah" : "Al-Fatihah", 
+    "awalAyat" : "1", 
+    "akhirSurah" : "Al-Baqarah",
+    "akhirAyat" : "12"
+}
+
+buat tabel baru juz 30 dengan format : 
+tabel juz30: 
+{
+    listSurah, 
+    halaman, 
+    awal ayat halaman, 
+    awal surah halaman, 
+    akhir ayat halaman, 
+    akhir surah halaman,
+}
+
+nit, 
+name, 
+gender,
+birthPlace, 
+birthDate, 
+tahunMasuk, 
+tahunLulus, 
+namaAyah, 
+namaIbu
+
+id, 
+nit, 
+name
+
+{
+    "id" : 0, 
+    student : {
+        {
+            "id" : 0, 
+            "nit" : "2027123456", 
+            "name" : "Abdul Jabbar"
+        },
+        {
+            "id" : 1,
+            "nit" : "2027456789", 
+            "name" : "Ahmad Alfarabi"
+        }    
+    }
+}
+
+tanggal, 
+jumlah_halaman, 
+nilaiKelancaran, 
+nilaiTajwid, 
+nilai Makhroj, 
+nilaiSifat 
+
+{
+    {
+        id = 0
+        tanggal : 23-06-2021
+        jumlah halaman : 5,
+        nilaiKelancaran : 100, 
+        nilaiTajwid : 98, 
+        nilaiMakroj : 99, 
+        nilaiSifat : 80
+    }
+    {
+        id : 1, 
+        tanga; 24-06-2021
+        jumlah_halaman : 4
+        nilaiKelancaran : 100, 
+        nilaiTajwid : 98, 
+        nilaiMakroj : 99, 
+        nilaiSifat : 80 
+    }
+    
+}
