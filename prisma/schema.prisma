@@ -46,6 +46,7 @@ model Teacher {
   gender        Gender
   birthPlace    String
   birthDate     DateTime
+  profileURL    String
   Sessions      Session[]
   tahfizhGroups TahfizhGroup[]
   user          User           @relation(fields: [userId], references: [id])
@@ -65,10 +66,11 @@ model Parents {
   birthPlace  String
   birthDate   DateTime
   username    String    @unique
-  students    Student[]
   pekerjaan   String
   status      String
   penghasilan Int
+  profileURL  String
+  students    Student[]
 }
 
 model Student {
@@ -80,6 +82,7 @@ model Student {
   birthDate      DateTime
   tahunMasuk     Int
   tahunLulus     Int
+  profileURL     String
   parent         Parents      @relation(fields: [parentId], references: [id])
   parentId       Int
   sessions       Session[]
