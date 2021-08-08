@@ -30,34 +30,48 @@ enum SessionType {
 }
 
 model User {
-  id             Int      @id @default(autoincrement())
-  username       String   @unique
+  id             Int       @id @default(autoincrement())
+  username       String    @unique
   password       String
   role           Role
   relatedTeacher Teacher?
   relatedStudent Student?
+  Parents        Parents[]
 }
 
 model Teacher {
-  id            Int            @id @default(autoincrement())
-  loginName     String         @unique
-  name          String
-  email         String         @unique
-  gender        Gender
-  birthPlace    String
-  birthDate     DateTime
-  profileURL    String
-  Sessions      Session[]
-  tahfizhGroups TahfizhGroup[]
-  user          User           @relation(fields: [userId], references: [id])
-  userId        Int
+  id             Int              @id @default(autoincrement())
+  loginName      String           @unique
+  nig            String           @unique
+  name           String
+  email          String           @unique
+  gender         Gender
+  birthPlace     String
+  birthDate      DateTime
+  profileURL     String
+  user           User             @relation(fields: [userId], references: [id])
+  userId         Int
+  TeacherDetails TeacherDetails[]
+  TahfizhGroup   TahfizhGroup[]
+  Session        Session[]
+}
+
+model TeacherDetails {
+  id           Int            @id @default(autoincrement())
+  guru         Teacher        @relation(fields: [guruId], references: [id])
+  guruId       Int            @unique
+  nig          String         @unique
+  Session      Session[]
+  tahfidzGroup TahfizhGroup[]
 }
 
 model TahfizhGroup {
-  id        Int       @id @default(autoincrement())
-  teacher   Teacher   @relation(fields: [teacherId], references: [id])
-  teacherId Int
-  students  Student[]
+  id               Int              @id @default(autoincrement())
+  teacher          Teacher          @relation(fields: [teacherId], references: [id])
+  teacherId        Int
+  tahfidzStudent   TahfidzStudent[]
+  TeacherDetails   TeacherDetails   @relation(fields: [teacherDetailsId], references: [id])
+  teacherDetailsId Int
 }
 
 model Parents {
@@ -71,11 +85,15 @@ model Parents {
   penghasilan Int
   profileURL  String
   students    Student[]
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
 }
 
 model Student {
-  id             Int          @id @default(autoincrement())
-  nit            String       @unique
+  id             Int              @id @default(autoincrement())
+  nit            String           @unique
+  nisn           String           @unique
+  nism           String           @unique
   name           String
   gender         Gender
   birthPlace     String
@@ -86,32 +104,44 @@ model Student {
   namaAyah       String
   namaIbu        String
   namaWali       String
-  parent         Parents      @relation(fields: [parentId], references: [id])
+  parent         Parents          @relation(fields: [parentId], references: [id])
   parentId       Int
-  sessions       Session[]
-  tahfizhGroup   TahfizhGroup @relation(fields: [tahfizhGroupId], references: [id])
-  tahfizhGroupId Int
-  user           User         @relation(fields: [userId], references: [id])
+  user           User             @relation(fields: [userId], references: [id])
   userId         Int
+  TahfidzStudent TahfidzStudent[]
+  Session        Session[]
+}
+
+model TahfidzStudent {
+  id             Int          @id @default(autoincrement())
+  student        Student      @relation(fields: [nit], references: [nit])
+  nit            String
+  session        Session[]
+  tahfidzGroup   TahfizhGroup @relation(fields: [tahfizhGroupId], references: [id])
+  tahfizhGroupId Int
 }
 
 model Session {
-  id           Int         @id @default(autoincrement())
-  waktuMulai   DateTime
-  waktuSelesai DateTime
-  juz          Int
-  halaman      Int
-  awalSetoran  String
-  akhirSetoran String
-  tajwid       Int
-  kelancaran   Int
-  makhrojSifat Int
-  teacher      Teacher     @relation(fields: [teacherId], references: [id])
-  teacherId    Int
-  student      Student     @relation(fields: [studentId], references: [id])
-  studentId    Int
-  type         SessionType
-  percepatan   Percepatan?
+  id               Int             @id @default(autoincrement())
+  waktuMulai       DateTime
+  waktuSelesai     DateTime
+  juz              Int
+  halaman          Int
+  awalSetoran      String
+  akhirSetoran     String
+  tajwid           Int
+  kelancaran       Int
+  makhrojSifat     Int
+  teacher          Teacher         @relation(fields: [teacherId], references: [id])
+  teacherId        Int
+  student          Student         @relation(fields: [studentId], references: [id])
+  studentId        Int
+  type             SessionType
+  percepatan       Percepatan?
+  TahfidzStudent   TahfidzStudent? @relation(fields: [tahfidzStudentId], references: [id])
+  tahfidzStudentId Int?
+  TeacherDetails   TeacherDetails? @relation(fields: [teacherDetailsId], references: [id])
+  teacherDetailsId Int?
 }
 
 model Percepatan {
