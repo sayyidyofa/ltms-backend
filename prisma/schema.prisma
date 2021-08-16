@@ -59,63 +59,84 @@ model User {
 
 model Teacher {
   id            Int            @id @default(autoincrement())
-  nig     String         @unique
+  nig           String         @unique
   name          String
   email         String         @unique
   gender        Gender
   birthPlace    String
   birthDate     DateTime
-  Sessions      Session[]
-  tahfizhGroups TahfizhGroup[]
+  //Sessions      Session[]
+  //tahfizhGroups TahfizhGroup[]
   user          User           @relation(fields: [userId], references: [id])
   userId        Int
+  tahfizhDetail TeacherTahfizhDetail?
+}
+
+model TeacherTahfizhDetail {
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+  teacherId Int 
+  tahfizhGroups TahfizhGroup[]
+  sessions  Session[]
+  @@id([teacherId])
 }
 
 model TahfizhGroup {
   id        Int       @id @default(autoincrement())
-  teacher   Teacher   @relation(fields: [teacherId], references: [id])
+  teacherDetail   TeacherTahfizhDetail  @relation(fields: [teacherId], references: [teacherId])
   teacherId Int
-  students  Student[]
+  studentDetails  StudentTahfizhDetail[]
 }
 
 model Student {
-  id             Int          @id @default(autoincrement())
-  nit            String       @unique
+  id             Int             @id @default(autoincrement())
+  nit            String          @unique
+  nisn           String          @unique
+  nism           String          @unique
   name           String
   gender         Gender
   birthPlace     String
   birthDate      DateTime
   tahunMasuk     Int
   tahunLulus     Int
-  sessions       Session[]
-  tahfizhGroup   TahfizhGroup @relation(fields: [tahfizhGroupId], references: [id])
+  //sessions       Session[]
+  //tahfizhGroup   TahfizhGroup    @relation(fields: [tahfizhGroupId], references: [id])
+  //tahfizhGroupId Int
+  user           User            @relation(fields: [userId], references: [id])
+  userId         Int
+  studentParents StudentParent[]
+  tahfizhDetail  StudentTahfizhDetail?
+
+}
+
+model StudentTahfizhDetail {
+  student        Student @relation(fields: [studentId], references: [id])
+  studentId      Int
+  tahfizhGroup   TahfizhGroup    @relation(fields: [tahfizhGroupId], references: [id])
   tahfizhGroupId Int
-  user           User         @relation(fields: [userId], references: [id])
+  sessions       Session[]
+  @@id([studentId])
+}
+
+model Parent {
+  id             Int             @id @default(autoincrement())
+  name           String
+  birthPlace     String
+  birthDate      DateTime
+  occupation     String
+  martialStatus  String
+  income         Int
+  profileURL     String
+  user           User            @relation(fields: [userId], references: [id])
   userId         Int
   studentParents StudentParent[]
 }
 
-model Parent {
-  id             Int      @id @default(autoincrement())
-  name        String
-  birthPlace  String
-  birthDate   DateTime
-  occupation   String
-  martialStatus      String
-  income Int
-  profileURL  String
-  user        User      @relation(fields: [userId], references: [id])
-  userId      Int
-  studentParents StudentParent[]
-}
-
-
 // Student <-> Parent many to many
 model StudentParent {
-  student Student @relation(fields: [studentId], references: [id])
-  studentId Int 
-  parent Parent @relation(fields: [parentId], references: [id])
-  parentId Int
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  parent    Parent  @relation(fields: [parentId], references: [id])
+  parentId  Int
   @@id([studentId, parentId])
 }
 
@@ -130,9 +151,9 @@ model Session {
   tajwid       Int
   kelancaran   Int
   makhrojSifat Int
-  teacher      Teacher     @relation(fields: [teacherId], references: [id])
+  teacherDetail      TeacherTahfizhDetail     @relation(fields: [teacherId], references: [teacherId])
   teacherId    Int
-  student      Student     @relation(fields: [studentId], references: [id])
+  studentDetail      StudentTahfizhDetail     @relation(fields: [studentId], references: [studentId])
   studentId    Int
   type         SessionType
   percepatan   Percepatan?
